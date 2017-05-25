@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4222ccb1-9d8a-40c7-9cee-4f3c0b0bb625</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cryptography.ECDSA</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Base58.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Curves\CurveBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Curves\CurveFp.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Curves\Point.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Curves\SECP256k1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Der.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keys\PrivateKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keys\PublicKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keys\Signature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keys\SigningKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Keys\VerifyingKey.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NumberTheory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RFC6979.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SHA256.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+  </ItemGroup>
+</Project>

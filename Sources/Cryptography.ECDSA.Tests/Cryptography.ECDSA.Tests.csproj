@@ -53,13 +53,8 @@
     <Compile Include="Secp256p1Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cryptography.ECDSA\Cryptography.ECDSA.csproj">
-      <Project>{a8185356-79d4-496c-a8e6-d53264829f9c}</Project>
-      <Name>Cryptography.ECDSA</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <Import Project="..\Cryptography.ECDSA\Cryptography.ECDSA.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
