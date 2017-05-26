@@ -1,14 +1,14 @@
 # Cryptography.ECDSA (secp256k1 only)
 
-This is an easy-to-use implementation of ECDSA cryptography (Elliptic Curve Digital Signature Algorithm), implemented in C#, released under the MIT license. With this library, you can quickly sign messages. 
+This is an easy-to-use implementation of ECDSA cryptography (Elliptic Curve Digital Signature Algorithm), implemented in C#, released under the MIT license. With this library, you can quickly sign transactions. 
 
 ## Features
 
-This library provides signing based on secp256k1 algorithm wich used in the blockchains (Graphene) such as Steam and Golos (based on https://github.com/warner/python-ecdsa)
+This library implements transaction signing based on secp256k1 algorithm which is used in Graphene-based blockchains such as Steem and Golos. The library is based on https://github.com/warner/python-ecdsa
 No other curves are included.
 
-Project contain several classes and structs. Almost all of them internal (hiden) (including PrivateKey and PublicKey). 
-You may use public classes Secp256K1 and Base58 for signing or make some classes as public if need
+The project contains several classes and structs. Almost all of them are internal (hidden), including PrivateKey and PublicKey. 
+You may use public classes Secp256K1 and Base58 for signing or make some other classes public if need.
 
 ## Usage
 ```
