@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography.ECDSA.Tests", "Cryptography.ECDSA.Tests\Cryptography.ECDSA.Tests.csproj", "{5A268EC4-27AE-4847-9532-83834B5FAC18}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cryptography.ECDSA", "Cryptography.ECDSA\Cryptography.ECDSA.shproj", "{4222CCB1-9D8A-40C7-9CEE-4F3C0B0BB625}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Cryptography.ECDSA", "Cryptography.ECDSA\Cryptography.ECDSA.shproj", "{58C01553-9621-4267-82CF-6D02A79FFEE1}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Cryptography.ECDSA\Cryptography.ECDSA.projitems*{4222ccb1-9d8a-40c7-9cee-4f3c0b0bb625}*SharedItemsImports = 13
+		Cryptography.ECDSA\Cryptography.ECDSA.projitems*{58c01553-9621-4267-82cf-6d02a79ffee1}*SharedItemsImports = 13
 		Cryptography.ECDSA\Cryptography.ECDSA.projitems*{5a268ec4-27ae-4847-9532-83834b5fac18}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
