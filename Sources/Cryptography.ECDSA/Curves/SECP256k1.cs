@@ -134,7 +134,7 @@ namespace Cryptography.ECDSA.Curves
         {
             var digest = SHA256.Instance.ComputeHash(msg);
             var p = Hex.HexToBigInteger(key.Hex);
-            var sk = SigningKey.FromString(p, this);
+            var sk = SigningKey.FromSecretExponent(p, this, SHA1.Create());
             byte[] signature;
             byte i;
 
@@ -142,7 +142,7 @@ namespace Cryptography.ECDSA.Curves
             while (true)
             {
                 cnt++;
-                
+
                 //Deterministic k
                 var timehex = Hex.IntToBytes(cnt); // BitConverter.GetBytes(DateTime.Now.Ticks);
                 var timeKey = Hex.Join(digest, timehex);

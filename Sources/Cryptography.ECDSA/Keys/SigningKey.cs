@@ -45,18 +45,7 @@ namespace Cryptography.ECDSA.Keys
             instance.Privkey.Order = n;
             return instance;
         }
-
-        public static SigningKey FromString(BigInteger secexp, CurveBase curve)
-        {
-            return FromString(secexp, curve, SHA1.Create());
-        }
-
-        public static SigningKey FromString(BigInteger secexp, CurveBase curve, HashAlgorithm hashfunc)
-        {
-            //Assert.IsTrue(Hex.ByteLength(secexp) == curve.BaseLen);
-            return FromSecretExponent(secexp, curve, hashfunc);
-        }
-
+        
         internal byte[] SignDigest(byte[] digest, RandomNumberGenerator entropy, BigInteger k)
         {
             if (digest.Length > Curve.BaseLen)
