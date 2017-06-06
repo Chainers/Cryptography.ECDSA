@@ -4,70 +4,44 @@ using System.Numerics;
 
 namespace Cryptography.ECDSA
 {
-    /// <summary>
-    /// Modified from CodesInChaos' public domain code
-    /// https://gist.github.com/CodesInChaos/3175971
-    /// </summary>
     public class Base58
     {
         public const int CheckSumSizeInBytes = 4;
         protected const string Hexdigits = "0123456789abcdefABCDEF";
         private const string Digits = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
 
-        public KnownPrefixes Prefix { get; set; }
-
-        public byte[] Hex { get; set; }
-
-        public enum KnownPrefixes
+        public static byte[] GetBytes(string data)
         {
-            GPH,
-            BTS,
-            MUSE,
-            TEST,
-            STM,
-            GLX,
-            GLS,
-        }
-
-
-        public Base58(string data) : this(data, KnownPrefixes.GPH) { }
-
-        public Base58(string data, KnownPrefixes prefix)
-        {
-            Prefix = prefix;
             if (data.All(Hexdigits.Contains))
+                return Hex.HexToBytes(data);
+
+            switch (data[0])
             {
-                Hex = ECDSA.Hex.HexToBytes(data);
+                case '5':
+                case '6':
+                    return Base58CheckDecode(data);
+                case 'K':
+                case 'L':
+                    return CutLastBytes(Base58CheckDecode(data), 1);
             }
-            else if (data[0] == '5' || data[0] == '6')
-            {
-                Hex = Base58CheckDecode(data);
-            }
-            else if (data[0] == 'K' || data[0] == 'L')
-            {
-                Hex = CutLastBytes(Base58CheckDecode(data), 1);
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
-        private byte[] CutLastBytes(byte[] source, int cutCount)
+        private static byte[] CutLastBytes(byte[] source, int cutCount)
         {
             var rez = new byte[source.Length - cutCount];
             Array.Copy(source, rez, rez.Length);
             return rez;
         }
 
-        private byte[] CutFirstBytes(byte[] source, int cutCount)
+        private static byte[] CutFirstBytes(byte[] source, int cutCount)
         {
             var rez = new byte[source.Length - cutCount];
             Array.Copy(source, cutCount, rez, 0, rez.Length);
             return rez;
         }
 
-        private byte[] Base58CheckDecode(string data)
+        private static byte[] Base58CheckDecode(string data)
         {
             var s = Decode(data);
             var dec = CutLastBytes(s, 4);
@@ -79,40 +53,12 @@ namespace Cryptography.ECDSA
             return CutFirstBytes(dec, 1);
         }
 
-        public static string EncodeWithCheckSum(byte[] data)
-        {
-            return Encode(AddCheckSum(data));
-        }
-
         public static byte[] RemoveCheckSum(byte[] data)
         {
             var result = new byte[data.Length - CheckSumSizeInBytes];
             Buffer.BlockCopy(data, 0, result, 0, data.Length - CheckSumSizeInBytes);
 
             return result;
-        }
-
-        public static bool VerifyCheckSum(byte[] data)
-        {
-            var result = new byte[data.Length - CheckSumSizeInBytes];
-            Buffer.BlockCopy(data, 0, result, 0, data.Length - CheckSumSizeInBytes);
-            var correctCheckSum = GetCheckSum(result);
-            for (var i = CheckSumSizeInBytes; i >= 1; i--)
-            {
-                if (data[data.Length - i] != correctCheckSum[CheckSumSizeInBytes - i])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        public static bool DecodeWithCheckSum(string base58, out byte[] decoded)
-        {
-            var dataWithCheckSum = Decode(base58);
-            var success = VerifyCheckSum(dataWithCheckSum);
-            decoded = RemoveCheckSum(dataWithCheckSum);
-            return success;
         }
 
         public static string Encode(byte[] data)
@@ -128,7 +74,7 @@ namespace Cryptography.ECDSA
             var result = "";
             while (intData > 0)
             {
-                var remainder = (int)(NumberTheory.Mod(intData, 58));
+                var remainder = (int)(intData % 58);
                 intData /= 58;
                 result = Digits[remainder] + result;
             }
@@ -163,24 +109,6 @@ namespace Cryptography.ECDSA
                 .SkipWhile(b => b == 0);//strip sign byte
             var result = leadingZeros.Concat(bytesWithoutLeadingZeros).ToArray();
             return result;
-        }
-
-
-        public static byte[] AddCheckSum(byte[] data)
-        {
-            var checkSum = GetCheckSum(data);
-
-            var result = new byte[checkSum.Length + data.Length];
-            Buffer.BlockCopy(data, 0, result, 0, data.Length);
-            Buffer.BlockCopy(checkSum, 0, result, data.Length, checkSum.Length);
-            return result;
-        }
-
-        private static byte[] GetCheckSum(byte[] data)
-        {
-            var hash = SHA256.Instance.DoubleHash(data);
-            Array.Resize(ref hash, CheckSumSizeInBytes);
-            return hash;
         }
     }
 }

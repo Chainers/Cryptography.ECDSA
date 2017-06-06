@@ -10,20 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Base58.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Curves\CurveBase.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Curves\CurveFp.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Curves\Point.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Curves\SECP256k1.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Der.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hex.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Keys\PrivateKey.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Keys\PublicKey.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Keys\Signature.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Keys\SigningKey.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Keys\VerifyingKey.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NumberTheory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RFC6979.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SHA256.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Proxy.cs" />
   </ItemGroup>
 </Project>

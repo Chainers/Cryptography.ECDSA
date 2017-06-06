@@ -38,8 +38,8 @@ namespace Cryptography.ECDSA.Tests
         [TestCase("5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3", "d2653ff7cbb2d8ff129ac27ef5781ce68b2558c41a74af1f2ddca635cbeef07d")]
         public void Base58HexTest(string key, string value)
         {
-            var base58 = new Base58(key);
-            var sHex = string.Join(string.Empty, base58.Hex.Select(i => i.ToString("x2")));
+            var hex = Base58.GetBytes(key);
+            var sHex = string.Join(string.Empty, hex.Select(i => i.ToString("x2")));
             Assert.IsTrue(sHex.Equals(value));
 
         }

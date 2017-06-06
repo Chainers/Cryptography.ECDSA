@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\sipa_secp256k1\contrib\lax_der_parsing.h" />
+    <ClInclude Include="..\sipa_secp256k1\contrib\lax_der_privatekey_parsing.h" />
+    <ClInclude Include="..\sipa_secp256k1\include\secp256k1.h" />
+    <ClInclude Include="..\sipa_secp256k1\include\secp256k1_ecdh.h" />
+    <ClInclude Include="..\sipa_secp256k1\include\secp256k1_recovery.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\modules\ecdh\main_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\modules\ecdh\tests_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\modules\recovery\main_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\modules\recovery\tests_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\basic-config.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecdsa.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecdsa_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\eckey.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\eckey_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult_const.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult_const_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult_gen.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult_gen_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\ecmult_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_10x26.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_10x26_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_5x52.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_5x52_asm_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_5x52_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_5x52_int128_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\field_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\group.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\group_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\hash.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\hash_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\num.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\num_gmp.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\num_gmp_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\num_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_4x64.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_4x64_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_8x32.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_8x32_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_low.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\scalar_low_impl.h" />
+    <ClInclude Include="..\sipa_secp256k1\src\util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libsecp256k1-config.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\sipa_secp256k1\contrib\lax_der_parsing.c" />
+    <ClCompile Include="..\sipa_secp256k1\contrib\lax_der_privatekey_parsing.c" />
+    <ClCompile Include="..\sipa_secp256k1\src\secp256k1.c" />
+    <ClCompile Include="Secp256k1.NET.cpp" />
+  </ItemGroup>
+  <PropertyGroup>
+    <RepoRoot>$(ProjectDir)..\sipa_secp256k1\</RepoRoot>
+  </PropertyGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0E3071CF-137F-4414-A58E-20F230548254}</ProjectGuid>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <Keyword>ManagedCProj</Keyword>
+    <RootNamespace>Secp256k1NET</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CLRSupport>true</CLRSupport>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\References\Secp256k1\$(Platform)</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName).$(PlatformTarget)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\References\Secp256k1\$(Platform)</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName).$(PlatformTarget)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\References\Secp256k1\$(Platform)</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName).$(PlatformTarget)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\References\Secp256k1\$(Platform)</OutDir>
+    <IntDir>obj\$(Platform)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName).$(PlatformTarget)</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>*.cdf;*.cache;*.obj;*.obj.enc;*.ilk;*.ipdb;*.iobj;*.resources;*.tlb;*.tli;*.tlh;*.tmp;*.rsp;*.pgc;*.pgd;*.meta;*.tlog;*.manifest;*.res;*.pch;*.exp;*.idb;*.rep;*.xdc;*.pdb;*_manifest.rc;*.bsc;*.sbr;*.xml;*.metagen;*.bi</ExtensionsToDeleteOnClean>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>$(RepoRoot)src\;$(RepoRoot)include\;$(RepoRoot);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+      <CLRImageType>Default</CLRImageType>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>$(RepoRoot)src\;$(RepoRoot)include\;$(RepoRoot);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>$(RepoRoot)src\;$(RepoRoot)include\;$(RepoRoot);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+      <SubSystem>
+      </SubSystem>
+      <CLRImageType>Default</CLRImageType>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>NDEBUG;HAVE_CONFIG_H;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>$(RepoRoot)src\;$(RepoRoot)include\;$(RepoRoot);$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies />
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
