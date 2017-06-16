@@ -14,7 +14,7 @@ namespace Cryptography.ECDSA
             {
                 if (_signaturesType == null)
                 {
-                    var asmName = $"Secp256k1.NET.x{(Environment.Is64BitProcess ? "64" : "86")}.dll";
+                    var asmName = $"Secp256k1.CLI.x{(Environment.Is64BitProcess ? "64" : "86")}.dll";
                     var path = GetPathToAssembly(asmName);
 
                     Assembly a = Assembly.LoadFrom(path);

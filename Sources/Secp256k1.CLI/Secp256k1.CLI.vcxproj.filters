@@ -179,7 +179,7 @@
     <ClCompile Include="..\sipa_secp256k1\contrib\lax_der_parsing.c">
       <Filter>contrib</Filter>
     </ClCompile>
-    <ClCompile Include="Secp256k1.NET.cpp">
+    <ClCompile Include="Secp256k1.CLI.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
