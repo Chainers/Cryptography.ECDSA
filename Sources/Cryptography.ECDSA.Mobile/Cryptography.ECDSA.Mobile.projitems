@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4222ccb1-9d8a-40c7-9cee-4f3c0b0bb625</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Cryptography.ECDSA.Mobile</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Base58.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Hex.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnmanagedApi.cs" />
+  </ItemGroup>
+</Project>
