@@ -9,10 +9,10 @@ Performance has increased in x3 times for cold start (init wrapper) and up to x1
 The difference in numbers is due to differences in the implementation of test methods. 
 Time was measured by VisualStudio-Profile-Tracing
 
-### Usage
+### References
 Secp256k1.NET - C++/cli glue for https://github.com/bitcoin-core/secp256k1 - to build/update the project you need to download sources to folder ..\Sources\sipa_secp256k1\ and rebuild. Assembly will be placed in \References\Secp256k1\ (x64/x86 versions).
 
-Cryptography.ECDSA - C# SharedProject wrap Secp256k1.NET.x86.dll / Secp256k1.NET.x64.dll and contain some addition code
+Cryptography.ECDSA.CLI - C# SharedProject wrap Secp256k1.NET.x86.dll / Secp256k1.NET.x64.dll and contain some addition code
 
 ### Features
 * Sign (byte[71])    
