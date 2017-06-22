@@ -2,6 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <PackageId>Cryptography.ECDSA.Secp256k1</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Chainers (ChainArtSoft)</Authors>
+    <Product>Cryptography.ECDSA.Secp256k1</Product>
+    <Company>ChainArtSoft</Company>
+    <Description>C# implementation of popular (and the fastest) library https://github.com/bitcoin-core/secp256k1 for EC operations on curve secp256k1.</Description>
+    <PackageLicenseUrl>https://github.com/Chainers/Cryptography.ECDSA/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Chainers/Cryptography.ECDSA</PackageProjectUrl>
+    <PackageReleaseNotes>Part of the code contains the original library. 
+- GetMessageHash - to compute sha256 cache 
+- SignCompressedCompact - for the computation of the signature name secp256k1 (canonical)</PackageReleaseNotes>
+    <PackageTags>secp256k1 ECDSA NetStandard</PackageTags>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
+    <RepositoryUrl>https://github.com/Chainers/Cryptography.ECDSA</RepositoryUrl>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
