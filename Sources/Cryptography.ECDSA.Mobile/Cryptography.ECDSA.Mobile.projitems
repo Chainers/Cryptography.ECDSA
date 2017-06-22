@@ -11,6 +11,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Base58.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Hex.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UnmanagedApi.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Proxy.cs" />
   </ItemGroup>
 </Project>

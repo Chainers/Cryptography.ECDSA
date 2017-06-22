@@ -13,12 +13,11 @@ namespace Cryptography.ECDSA.Tests
         {
             var msg = System.Text.Encoding.UTF8.GetBytes(text);
             var hex = Base58.GetBytes(TestWif);
-            var digest = Proxy.GetMessageHash(msg);
-            int recId;
-            var signature = Proxy.SignCompact(digest, hex, out recId);
-            Assert.IsTrue(signature.Length == 64);
+            var sha256 = Proxy.GetMessageHash(msg);
+            var signature = Proxy.SignCompressedCompact(sha256, hex);
+            Assert.IsTrue(signature.Length == 65);
 
-            var sRez = Hex.ToString(Hex.Join(new[] { (byte)(recId + 4 + 27) }, signature));
+            var sRez = Hex.ToString(signature);
             Assert.IsTrue(sig.Equals(sRez), $"Expected:{sig} but was {sRez}");
         }
     }

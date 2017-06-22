@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using System.Security.Cryptography;
 
 namespace Cryptography.ECDSA
 {
@@ -73,5 +74,39 @@ namespace Cryptography.ECDSA
 
         public delegate byte[] NormalizeSignatureDelegate(byte[] signature, out bool wasAlreadyNormalized);
         public static NormalizeSignatureDelegate NormalizeSignature = (NormalizeSignatureDelegate)Delegate.CreateDelegate(typeof(NormalizeSignatureDelegate), SignaturesType.GetRuntimeMethod("NormalizeSignature", new[] { typeof(byte[]), typeof(bool).MakeByRefType() }));
+
+
+        /// <summary>
+        /// Get compressed and compact signature (possible in not canonical form)
+        /// </summary>
+        /// <param name="data">Hashed data</param>
+        /// <param name="seckey">Private key (32 bytes)</param>
+        /// <returns> 65 bytes compressed / compact</returns>
+        public static byte[] SignCompressedCompact(byte[] data, byte[] seckey)
+        {
+            if (data == null)
+                throw new ArgumentNullException(nameof(data));
+            if (data.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(data));
+            if (seckey == null)
+                throw new ArgumentNullException(nameof(seckey));
+            if (seckey.Length != 32)
+                throw new ArgumentOutOfRangeException(nameof(seckey));
+
+            int recoveryId = -1;
+            var sigptr = SignCompact(data, seckey, out recoveryId);
+
+            //4 - compressed | 27 - compact
+            var sRez = Hex.Join(new[] { (byte)(recoveryId + 4 + 27) }, sigptr);
+            return sRez;
+        }
+
+        public static bool IsCanonical(byte[] sig)
+        {
+            return !((sig[0] & 0x80) > 0)
+                   && !(sig[0] == 0 && !((sig[1] & 0x80) > 0))
+                   && !((sig[32] & 0x80) > 0)
+                   && !(sig[32] == 0 && !((sig[33] & 0x80) > 0));
+        }
     }
 }

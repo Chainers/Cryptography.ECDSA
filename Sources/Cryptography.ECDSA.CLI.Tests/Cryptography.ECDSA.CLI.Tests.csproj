@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,11 +52,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Cryptography.ECDSA\Const.cs">
+      <Link>ForTest\Const.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\ECMult.cs">
+      <Link>ForTest\ECMult.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\ECMultGen.cs">
+      <Link>ForTest\ECMultGen.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Field\Field.cs">
+      <Link>ForTest\Field\Field.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Field\Field_10x26.cs">
+      <Link>ForTest\Field\Field_10x26.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Field\Field_5x52.cs">
+      <Link>ForTest\Field\Field_5x52.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Group.cs">
+      <Link>ForTest\Group.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Hash.cs">
+      <Link>ForTest\Hash.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Scalar\Scalar.cs">
+      <Link>ForTest\Scalar\Scalar.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Scalar\scalar_8x32.cs">
+      <Link>ForTest\Scalar\scalar_8x32.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Secp256k1.cs">
+      <Link>ForTest\Secp256k1.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Secp256k1Manager.cs">
+      <Link>ForTest\Secp256k1Manager.cs</Link>
+    </Compile>
+    <Compile Include="..\Cryptography.ECDSA\Util.cs">
+      <Link>ForTest\Util.cs</Link>
+    </Compile>
     <Compile Include="Base58Test.cs" />
     <Compile Include="BaseTest.cs" />
     <Compile Include="HexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Secp256k1Test.cs" />
+    <Compile Include="Secp256k1ManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Cryptography.ECDSA
 {
-    public class UnmanagedApi : IDisposable
+    public class Proxy : IDisposable
     {
         private const string LibName = "libSecp256k1.so";
 
@@ -31,7 +31,7 @@ namespace Cryptography.ECDSA
             EcUncompressed = (FlagsTypeCompression)
         }
 
-        static UnmanagedApi()
+        static Proxy()
         {
             Ctx = new IntPtr();
             Ctx = secp256k1_context_create((uint)(Secp256K1Options.ContextSign | Secp256K1Options.ContextVerify));
@@ -64,7 +64,7 @@ namespace Cryptography.ECDSA
         
         #endregion SECP256K1_API
 
-        public static byte[] SignCompact(byte[] data, byte[] seckey)
+        public static byte[] SignCompressedCompact(byte[] data, byte[] seckey)
         {
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
@@ -79,6 +79,7 @@ namespace Cryptography.ECDSA
             var sigptr = new byte[64];
             var msg32 = GetMessageHash(data);
             var t = sign_compact(Ctx, msg32, seckey, sigptr, ref recoveryId);
+            //4 - compressed | 27 - compact
             var sRez = Hex.Join(new[] { (byte)(recoveryId + 4 + 27) }, sigptr);
             return sRez;
         }
