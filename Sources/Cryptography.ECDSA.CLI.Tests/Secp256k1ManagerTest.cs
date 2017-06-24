@@ -14,9 +14,9 @@ namespace Cryptography.ECDSA.CLI.Tests
             var sw2 = new Stopwatch();
 
             var rand = new Random();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                var buf = new byte[rand.Next(0, 500)];
+                var buf = new byte[rand.Next(1, 1000)];
                 rand.NextBytes(buf);
 
                 sw1.Start();
@@ -62,9 +62,17 @@ namespace Cryptography.ECDSA.CLI.Tests
 
                 Assert.IsTrue(signature1.Length == 65);
                 Assert.IsTrue(signature2.Length == 65);
-                for (int j = 0; j < signature1.Length; j++)
+                Assert.IsTrue(Secp256k1Manager.IsCanonical(signature2, 1));
+                if (Secp256k1Manager.IsCanonical(signature1, 1))
                 {
-                    Assert.IsTrue(signature1[j] == signature2[j]);
+                    for (int j = 0; j < signature1.Length; j++)
+                    {
+                        Assert.IsTrue(signature1[j] == signature2[j]);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"signature1 not canonical - skip [{i}]");
                 }
             }
 

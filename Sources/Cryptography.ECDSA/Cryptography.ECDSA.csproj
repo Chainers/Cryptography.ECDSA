@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
     <PackageId>Cryptography.ECDSA.Secp256k1</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Chainers (ChainArtSoft)</Authors>
     <Product>Cryptography.ECDSA.Secp256k1</Product>
     <Company>ChainArtSoft</Company>
@@ -12,12 +12,13 @@
     <PackageProjectUrl>https://github.com/Chainers/Cryptography.ECDSA</PackageProjectUrl>
     <PackageReleaseNotes>Part of the code contains the original library. 
 - GetMessageHash - to compute sha256 cache 
-- SignCompressedCompact - for the computation of the signature name secp256k1 (canonical)</PackageReleaseNotes>
+- SignCompressedCompact - for the computation of the signature name secp256k1 (canonical)
+* fix IsCanonical test</PackageReleaseNotes>
     <PackageTags>secp256k1 ECDSA NetStandard</PackageTags>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <FileVersion>2.1.0.0</FileVersion>
+    <AssemblyVersion>2.1.0.1</AssemblyVersion>
+    <FileVersion>2.1.0.1</FileVersion>
     <RepositoryUrl>https://github.com/Chainers/Cryptography.ECDSA</RepositoryUrl>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>

@@ -145,7 +145,7 @@ namespace Cryptography.ECDSA
 
                 rec = secp256k1_ecdsa_sign_recoverable(ctx, sig, msg32, seckey, null, extra);
 
-            } while (!rec && !is_canonical(sig.data));
+            } while (!rec);
 
             secp256k1_ecdsa_recoverable_signature_serialize_compact(ctx, output64, out recid, sig);
             return loop;
@@ -400,8 +400,9 @@ namespace Cryptography.ECDSA
             byte loop = 0;
             int index = 0;
             bool rec;
-            byte[] extra = null;
+            byte[] extra = null;           
             Random r = new Random();
+
             do
             {
                 if (loop == 0xff) { index = index + 1; loop = 0; }
@@ -412,23 +413,32 @@ namespace Cryptography.ECDSA
                 }
                 loop++;
                 rec = secp256k1_ecdsa_sign_recoverable(Ctx, sig, data, seckey, null, extra);
+            } while (!(rec && is_canonical(sig.data)));
 
-            } while (!rec && !is_canonical(sig.data));
             var output65 = new byte[65];
             secp256k1_ecdsa_recoverable_signature_serialize_compact(Ctx, output65, 1, out recoveryId, sig);
-
 
             //4 - compressed | 27 - compact
             output65[0] = (byte)(recoveryId + 4 + 27);
             return output65;
         }
 
+        // test after secp256k1_ecdsa_recoverable_signature_serialize_compact
+        public static bool IsCanonical(byte[] sig, int skip)
+        {
+            return !((sig[skip + 0] & 0x80) > 0)
+                   && !(sig[skip + 0] == 0 && !((sig[skip + 1] & 0x80) > 0))
+                   && !((sig[skip + 32] & 0x80) > 0)
+                   && !(sig[skip + 32] == 0 && !((sig[skip + 33] & 0x80) > 0));
+        }
+
+        //test after secp256k1_ecdsa_sign_recoverable
         private static bool is_canonical(byte[] sig)
         {
-            return !((sig[0] & 0x80) > 0)
-                   && !(sig[0] == 0 && !((sig[1] & 0x80) > 0))
-                   && !((sig[32] & 0x80) > 0)
-                   && !(sig[32] == 0 && !((sig[33] & 0x80) > 0));
+            return !((sig[31] & 0x80) > 0)
+                   && !(sig[31] == 0 && !((sig[30] & 0x80) > 0))
+                   && !((sig[63] & 0x80) > 0)
+                   && !(sig[63] == 0 && !((sig[62] & 0x80) > 0));
         }
     }
 }
