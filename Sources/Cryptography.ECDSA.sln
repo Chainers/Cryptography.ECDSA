@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cryptography.ECDSA", "Cryptography.ECDSA\Cryptography.ECDSA.csproj", "{C1B6CFDC-5DEF-4697-9C20-33B2F6C735C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cryptography.ECDSA.Tests", "Cryptography.ECDSA.Tests\Cryptography.ECDSA.Tests.csproj", "{425FF5D0-80BD-4286-B535-1793AFF387CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1B6CFDC-5DEF-4697-9C20-33B2F6C735C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1B6CFDC-5DEF-4697-9C20-33B2F6C735C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1B6CFDC-5DEF-4697-9C20-33B2F6C735C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1B6CFDC-5DEF-4697-9C20-33B2F6C735C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{425FF5D0-80BD-4286-B535-1793AFF387CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{425FF5D0-80BD-4286-B535-1793AFF387CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{425FF5D0-80BD-4286-B535-1793AFF387CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{425FF5D0-80BD-4286-B535-1793AFF387CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE085AB1-DB70-4EBF-8245-0E3F55CF39B1}
+	EndGlobalSection
+EndGlobal
