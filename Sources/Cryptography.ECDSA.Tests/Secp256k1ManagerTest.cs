@@ -37,7 +37,7 @@ namespace Cryptography.ECDSA.Tests
                 }
             }
 
-            WriteLine($"Secp256k1Manager time {sw1.ElapsedTicks}");
+            WriteLine($"Secp256K1Manager time {sw1.ElapsedTicks}");
         }
     }
 }
