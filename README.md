@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Chainers/Cryptography.ECDSA.svg?branch=master)](https://travis-ci.org/Chainers/Cryptography.ECDSA)
+
 # Cryptography.ECDSA (secp256k1 only)
 
 This library implements transaction signing algorithm secp256k1 which is used in several blockchains like Bitcoin, EOS and Graphene-based Steem, Golos, BitShares. The library is based on https://github.com/warner/python-ecdsa and https://github.com/bitcoin-core/secp256k1)
