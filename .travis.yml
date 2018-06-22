@@ -1,2 +1,13 @@
 language: csharp
-solution: Cryptography.ECDSA.sln
+mono:
+  - 5.12.0
+solution: ./Sources/Cryptography.ECDSA.sln
+
+install:
+  - nuget restore ./Sources/Cryptography.ECDSA.sln
+  - nuget install NUnit.Runners -OutputDirectory testrunner
+  
+script:
+  - xbuild ./Sources/Cryptography.ECDSA.sln /p:TargetFrameworkVersion="v4.7" /p:Configuration=Release
+  - set -e
+  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./Sources/Cryptography.ECDSA.Tests/bin/Release/Cryptography.ECDSA.Tests.dll

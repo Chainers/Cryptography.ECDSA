@@ -1,29 +1,24 @@
-﻿using Xunit;
-using Xunit.Abstractions;
+﻿using NUnit.Framework;
 
 namespace Cryptography.ECDSA.Tests
 {
     public class HexTest : BaseTest
     {
-        public HexTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
-        [Theory]
-        [InlineData(0, "00")]
-        [InlineData(0, "0000")]
-        [InlineData(1, "1")]
-        [InlineData(1, "01")]
-        [InlineData(16, "10")]
-        [InlineData(127, "7f")]
-        [InlineData(128, "80")]
-        [InlineData(255, "ff")]
-        [InlineData(256, "100")]
-        [InlineData(257, "101")]
-        [InlineData(2048, "800")]
-        [InlineData(65536, "10000")]
-        [InlineData(int.MaxValue, "7fffffff")]
-        [InlineData(int.MinValue, "80000000")]
+        [Test]
+        [TestCase(0, "00")]
+        [TestCase(0, "0000")]
+        [TestCase(1, "1")]
+        [TestCase(1, "01")]
+        [TestCase(16, "10")]
+        [TestCase(127, "7f")]
+        [TestCase(128, "80")]
+        [TestCase(255, "ff")]
+        [TestCase(256, "100")]
+        [TestCase(257, "101")]
+        [TestCase(2048, "800")]
+        [TestCase(65536, "10000")]
+        [TestCase(int.MaxValue, "7fffffff")]
+        [TestCase(int.MinValue, "80000000")]
         public void ConvertIntTest(int key, string hex)
         {
             var hexStr = Hex.HexToBytes(hex);
