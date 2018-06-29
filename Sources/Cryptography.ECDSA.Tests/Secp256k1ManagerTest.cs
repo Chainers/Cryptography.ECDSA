@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Security.Cryptography;
-using Xunit;
-using Xunit.Abstractions;
+using NUnit.Framework;
 
 namespace Cryptography.ECDSA.Tests
 {
     public class Secp256K1ManagerTest : BaseTest
     {
-        public Secp256K1ManagerTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
-        [Fact]
+        [Test]
         public void SignCompressedCompactTest()
         {
             var key = Secp256K1Manager.GenerateRandomKey();
