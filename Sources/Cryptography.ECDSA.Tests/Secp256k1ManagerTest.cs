@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
 namespace Cryptography.ECDSA.Tests
@@ -11,12 +12,12 @@ namespace Cryptography.ECDSA.Tests
         {
             var key = Secp256K1Manager.GenerateRandomKey();
             var sw1 = new Stopwatch();
-            var rand = new Random();
+            var rand = new RNGCryptoServiceProvider();
             byte[] msg;
             for (int i = 1; i < 1000; i++)
             {
                 msg = new byte[i];
-                rand.NextBytes(msg);
+                rand.GetBytes(msg);
 
                 var hash = Sha256Manager.GetHash(msg);
 

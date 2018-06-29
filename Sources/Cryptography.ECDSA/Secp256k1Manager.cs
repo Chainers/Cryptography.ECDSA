@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using Cryptography.ECDSA.Internal.Secp256K1;
 
 namespace Cryptography.ECDSA
@@ -304,7 +305,7 @@ namespace Cryptography.ECDSA
             int index = 0;
             bool rec;
             byte[] extra = null;
-            Random r = new Random();
+            var r = new RNGCryptoServiceProvider();
 
             do
             {
@@ -312,7 +313,7 @@ namespace Cryptography.ECDSA
                 if (loop > 0)
                 {
                     extra = new byte[32];
-                    r.NextBytes(extra);
+                    r.GetBytes(extra);
                 }
                 loop++;
                 rec = Secp256K1EcdsaSignRecoverable(Ctx, sig, data, seckey, null, extra);
@@ -376,9 +377,9 @@ namespace Cryptography.ECDSA
 
         public static byte[] GenerateRandomKey()
         {
-            var rand = new Random(DateTime.Now.Millisecond);
+            var rand = new RNGCryptoServiceProvider();
             var key = new byte[32];
-            rand.NextBytes(key);
+            rand.GetBytes(key);
             return key;
         }
     }
