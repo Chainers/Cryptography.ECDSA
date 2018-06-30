@@ -402,7 +402,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (len < 1)
                 return;
 
-            //  Util.VERIFY_CHECK((r.Length + len <= a.Length) || (a.Length + len <= r.Length));
+            //  Debug.Assert((r.Length + len <= a.Length) || (a.Length + len <= r.Length));
 
             for (int j = 0; j < len; j++)
             {

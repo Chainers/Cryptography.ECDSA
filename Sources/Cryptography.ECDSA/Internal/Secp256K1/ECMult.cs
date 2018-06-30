@@ -1,6 +1,7 @@
 ﻿//#define USE_ENDOMORPHISM
 
 using System;
+using System.Diagnostics;
 
 namespace Cryptography.ECDSA.Internal.Secp256K1
 {
@@ -54,7 +55,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         /// <param name="a"></param>
         static void secp256k1_ecmult_odd_multiples_table(int n, GeJ[] prej, Fe[] zr, GeJ a)
         {
-            Util.VERIFY_CHECK(!a.Infinity);
+            Debug.Assert(!a.Infinity);
 
             GeJ d = new GeJ();
             Group.secp256k1_gej_double_var(d, a, null);
@@ -141,9 +142,9 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         ///** The following two macro retrieves a particular odd multiple from a table
         // *  of precomputed multiples. */
         //#define ECMULT_TABLE_GET_GE(r,pre,n,w) do { \
-        //    Util.VERIFY_CHECK(((n) & 1) == 1); \
-        //    Util.VERIFY_CHECK((n) >= -((1 << ((w)-1)) - 1)); \
-        //    Util.VERIFY_CHECK((n) <=  ((1 << ((w)-1)) - 1)); \
+        //    Debug.Assert(((n) & 1) == 1); \
+        //    Debug.Assert((n) >= -((1 << ((w)-1)) - 1)); \
+        //    Debug.Assert((n) <=  ((1 << ((w)-1)) - 1)); \
         //    if ((n) > 0) { \
         //        * (r) = (pre)[((n) - 1) / 2]; \
         //    } else { \
@@ -152,9 +153,9 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //} while(0)
 
         //#define ECMULT_TABLE_GET_GE_STORAGE(r,pre,n,w) do { \
-        //    Util.VERIFY_CHECK(((n) & 1) == 1); \
-        //    Util.VERIFY_CHECK((n) >= -((1 << ((w)-1)) - 1)); \
-        //    Util.VERIFY_CHECK((n) <=  ((1 << ((w)-1)) - 1)); \
+        //    Debug.Assert(((n) & 1) == 1); \
+        //    Debug.Assert((n) >= -((1 << ((w)-1)) - 1)); \
+        //    Debug.Assert((n) <=  ((1 << ((w)-1)) - 1)); \
         //    if ((n) > 0) { \
         //        FromStorage((r), (pre)[((n) - 1) / 2]); \
         //    } else { \
@@ -266,10 +267,10 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //    int sign = 1;
         //    int carry = 0;
 
-        //    Util.VERIFY_CHECK(wnaf != null);
-        //    Util.VERIFY_CHECK(0 <= len && len <= 256);
-        //    Util.VERIFY_CHECK(a != null);
-        //    Util.VERIFY_CHECK(2 <= w && w <= 31);
+        //    Debug.Assert(wnaf != null);
+        //    Debug.Assert(0 <= len && len <= 256);
+        //    Debug.Assert(a != null);
+        //    Debug.Assert(2 <= w && w <= 31);
 
         //    memset(wnaf, 0, len * sizeof(wnaf[0]));
 
@@ -348,8 +349,8 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //    /* build wnaf representation for na_1 and na_lam. */
         //    bits_na_1 = secp256k1_ecmult_wnaf(wnaf_na_1, 130, na_1, WINDOW_A);
         //    bits_na_lam = secp256k1_ecmult_wnaf(wnaf_na_lam, 130, na_lam, WINDOW_A);
-        //    Util.VERIFY_CHECK(bits_na_1 <= 130);
-        //    Util.VERIFY_CHECK(bits_na_lam <= 130);
+        //    Debug.Assert(bits_na_1 <= 130);
+        //    Debug.Assert(bits_na_lam <= 130);
         //    bits = bits_na_1;
         //    if (bits_na_lam > bits)
         //    {

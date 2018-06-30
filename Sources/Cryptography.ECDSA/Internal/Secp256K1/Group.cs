@@ -2,6 +2,7 @@
 //#define VERIFY
 
 using System;
+using System.Diagnostics;
 
 namespace Cryptography.ECDSA.Internal.Secp256K1
 {
@@ -599,7 +600,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //static int secp256k1_gej_eq_x_var(const secp256k1_fe* x, const secp256k1_gej* a)
         //{
         //secp256k1_fe r, r2;
-        //Util.VERIFY_CHECK(!a.infinity);
+        //Debug.Assert(!a.infinity);
         //Field.Sqr(r, a.z); Field.Mul(r, r, x);
         //r2 = a.x; Field.NormalizeWeak(r2);
         //return EqualVar(r, r2);
@@ -733,7 +734,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
 
         //static SECP256K1_INLINE void secp256k1_gej_double_nonzero(secp256k1_gej* r, const secp256k1_gej* a, secp256k1_fe* rzr)
         //{
-        //Util.VERIFY_CHECK(!secp256k1_gej_is_infinity(a));
+        //Debug.Assert(!secp256k1_gej_is_infinity(a));
         //secp256k1_gej_double_var(r, a, rzr);
         //}
 
@@ -749,7 +750,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
 
             if (a.Infinity)
             {
-                Util.VERIFY_CHECK(rzr == null);
+                Debug.Assert(rzr == null);
                 r = b.Clone();
                 return;
             }
@@ -822,7 +823,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             /* 8 mul, 3 sqr, 4 normalize, 12 mul_int/add/negate */
             if (a.Infinity)
             {
-                Util.VERIFY_CHECK(rzr == null);
+                Debug.Assert(rzr == null);
                 secp256k1_gej_set_ge(r, b);
                 return;
             }
@@ -956,7 +957,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         {
             /* Operations: 4 mul, 1 sqr */
             Fe zz = new Fe();
-            Util.VERIFY_CHECK(!Field.IsZero(s));
+            Debug.Assert(!Field.IsZero(s));
             Field.Sqr(zz, s);
             Field.Mul(r.X, r.X, zz);                /* r.x *= s^2 */
             Field.Mul(r.Y, r.Y, zz);
@@ -967,7 +968,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         public static void ToStorage(GeStorage r, Ge a)
         {
             Fe x, y;
-            Util.VERIFY_CHECK(!a.Infinity);
+            Debug.Assert(!a.Infinity);
             x = a.X.Clone();
             Field.Normalize(x);
             y = a.Y.Clone();

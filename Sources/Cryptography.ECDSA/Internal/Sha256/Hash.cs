@@ -1,5 +1,3 @@
-//#define WORDS_BIGENDIAN
-
 using System;
 using Cryptography.ECDSA.Internal.Secp256K1;
 
@@ -22,9 +20,8 @@ namespace Cryptography.ECDSA.Internal.Sha256
 
         public static void Write(Sha256T hash, UInt32[] data, UInt32 len)
         {
-            byte[] byfdata = new byte[data.Length * sizeof(UInt32)];
+            var byfdata = new byte[data.Length * sizeof(UInt32)];
             Util.Memcpy(data, 0, byfdata, 0, byfdata.Length);
-
             Write(hash, byfdata, len);
         }
 
@@ -55,13 +52,13 @@ namespace Cryptography.ECDSA.Internal.Sha256
         /// </summary>
         /// <param name="s"></param>
         /// <param name="chunk"></param>
-        static void Transform(UInt32[] s, UInt32[] chunk)
+        public static void Transform(UInt32[] s, UInt32[] chunk)
         {
             UInt32 a = s[0], b = s[1], c = s[2], d = s[3], e = s[4], f = s[5], g = s[6], h = s[7];
             UInt32 w0, w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, w13, w14, w15;
             UInt32 t1, t2;
 
-#if WORDS_BIGENDIAN
+#if BIGENDIAN
             t1 = (h) + (((e) >> 6 | (e) << 26) ^ ((e) >> 11 | (e) << 21) ^ ((e) >> 25 | (e) << 7)) + ((g) ^ ((e) & ((f) ^ (g)))) + (0x428a2f98) + (w0 = (chunk[0]));
             t2 = (((a) >> 2 | (a) << 30) ^ ((a) >> 13 | (a) << 19) ^ ((a) >> 22 | (a) << 10)) + (((a) & (b)) | ((c) & ((a) | (b))));
             (d) += t1;
@@ -724,33 +721,60 @@ namespace Cryptography.ECDSA.Internal.Sha256
 
         public static void Finalize(Sha256T hash, byte[] out32)
         {
-            var pad = new byte[64] { 0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-            var sizedesc = new UInt32[2];
-            var byfOut = new UInt32[8];
-            var i = 0;
+            var len = hash.Bytes;
+            var pad = new byte[(int)(1 + (119 - len % 64) % 64)];
+            pad[0] = 0x80;
+            Write(hash, pad, (uint)pad.Length);
 
-#if WORDS_BIGENDIAN
-            sizedesc[0] = (UInt32)(hash.bytes >> 29);
-            sizedesc[1] = (UInt32)(hash.bytes << 3);
-            Write(hash, pad, 1 + ((119 - (hash.bytes % 64)) % 64));
-            Write(hash, sizedesc, 8);
-            for (i = 0; i < 8; i++)
+#if BIGENDIAN
+            var sizedesc = new[]
             {
-                byfOut[i] = hash.s[i];
-                hash.s[i] = 0;
+                (byte) (len >> 29),
+                (byte) (len >> 37),
+                (byte) (len >> 45),
+                (byte) (len >> 53),
+
+                (byte) (len << 3),
+                (byte) (len >> 5),
+                (byte) (len >> 13),
+                (byte) (len >> 21),
+            };
+
+            Write(hash, sizedesc, (uint)sizedesc.Length);
+
+            for (var i = 0; i < 8; i++)
+            {
+                var val = hash.S[i];
+                out32[i * 4] = (byte)val;
+                out32[i * 4 + 1] = (byte)(val >> 8);
+                out32[i * 4 + 2] = (byte)(val >> 16);
+                out32[i * 4 + 3] = (byte)(val >> 24);
             }
 #else
-            sizedesc[0] = (UInt32)(((((hash.Bytes >> 29) & 0xFF) << 24) | (((hash.Bytes >> 29) & 0xFF00) << 8) | (((hash.Bytes >> 29) & 0xFF0000) >> 8) | (((hash.Bytes >> 29) & 0xFF000000) >> 24)));
-            sizedesc[1] = (UInt32)(((((hash.Bytes << 3) & 0xFF) << 24) | (((hash.Bytes << 3) & 0xFF00) << 8) | (((hash.Bytes << 3) & 0xFF0000) >> 8) | (((hash.Bytes << 3) & 0xFF000000) >> 24)));
-            Write(hash, pad, 1 + ((119 - (hash.Bytes % 64)) % 64));
-            Write(hash, sizedesc, 8);
-            for (i = 0; i < 8; i++)
+            var sizedesc = new[]
             {
-                byfOut[i] = ((((hash.S[i]) & 0xFF) << 24) | (((hash.S[i]) & 0xFF00) << 8) | (((hash.S[i]) & 0xFF0000) >> 8) | (((hash.S[i]) & 0xFF000000) >> 24));
-                hash.S[i] = 0;
+                (byte) (len >> 53),
+                (byte) (len >> 45),
+                (byte) (len >> 37),
+                (byte) (len >> 29),
+
+                (byte) (len >> 21),
+                (byte) (len >> 13),
+                (byte) (len >> 5),
+                (byte) (len << 3)
+            };
+            Write(hash, sizedesc, (uint)sizedesc.Length);
+
+            for (var i = 0; i < 8; i++)
+            {
+                var val = hash.S[i];
+                out32[i * 4] = (byte)(val >> 24);
+                out32[i * 4 + 1] = (byte)(val >> 16);
+                out32[i * 4 + 2] = (byte)(val >> 8);
+                out32[i * 4 + 3] = (byte)val;
             }
 #endif
-            Util.Memcpy(byfOut, 0, out32, 0, 32);//memcpy(out32, (const byte[])byfOut, 32);
+            Array.Clear(hash.S, 0, hash.S.Length);
         }
 
         private static void HmacSha256Initialize(HmacSha256T hash, byte[] key, UInt32 keylen)
@@ -763,7 +787,7 @@ namespace Cryptography.ECDSA.Internal.Sha256
             }
             else
             {
-                Sha256T sha256 = new Sha256T();
+                var sha256 = new Sha256T();
                 Initialize(sha256);
                 Write(sha256, key, keylen);
                 Finalize(sha256, rkey);
@@ -803,7 +827,7 @@ namespace Cryptography.ECDSA.Internal.Sha256
 
         public static void Rfc6979HmacSha256Initialize(Rfc6979HmacSha256T rng, byte[] key, UInt32 keylen)
         {
-            HmacSha256T hmac = new HmacSha256T();
+            var hmac = new HmacSha256T();
             var zero = new byte[] { 0x00 };
             var one = new byte[] { 0x01 };
 
@@ -838,7 +862,7 @@ namespace Cryptography.ECDSA.Internal.Sha256
             var zero = new byte[1] { 0x00 };
             if (rng.Retry)
             {
-                HmacSha256T hmac = new HmacSha256T();
+                var hmac = new HmacSha256T();
                 HmacSha256Initialize(hmac, rng.K, 32);
                 HmacSha256Write(hmac, rng.V, 32);
                 HmacSha256Write(hmac, zero, 1);
@@ -851,8 +875,8 @@ namespace Cryptography.ECDSA.Internal.Sha256
             var index = 0;
             while (outlen > 0)
             {
-                HmacSha256T hmac = new HmacSha256T();
-                int now = outlen;
+                var hmac = new HmacSha256T();
+                var now = outlen;
                 HmacSha256Initialize(hmac, rng.K, 32);
                 HmacSha256Write(hmac, rng.V, 32);
                 HmacSha256Finalize(hmac, rng.V);
