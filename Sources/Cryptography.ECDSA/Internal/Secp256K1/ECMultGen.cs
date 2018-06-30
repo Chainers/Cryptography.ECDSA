@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
 using Cryptography.ECDSA.Internal.Sha256;
 
@@ -37,10 +38,10 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
                 Ge numsGe = new Ge();
                 var r = Field.SetB32(numsX, numsB32);
                 //(void)r;
-                Util.VERIFY_CHECK(r);
+                Debug.Assert(r);
                 r = Group.secp256k1_ge_set_xo_var(numsGe, numsX, false);
                 //(void)r;
-                Util.VERIFY_CHECK(r);
+                Debug.Assert(r);
                 Group.secp256k1_gej_set_ge(numsGej, numsGe);
                 /* Add G to make the bits in x uniformly distributed. */
                 Group.secp256k1_gej_add_ge_var(numsGej, numsGej, Group.Secp256K1GeConstG, null);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using Cryptography.ECDSA.Internal.Secp256K1;
 
@@ -166,8 +167,8 @@ namespace Cryptography.ECDSA
             Field.GetB32(b, r.X);
             Scalar.SetB32(sigr, b, ref overflow);
             /* These two conditions should be checked before calling */
-            Util.VERIFY_CHECK(!Scalar.IsZero(sigr));
-            Util.VERIFY_CHECK(!overflow);
+            Debug.Assert(!Scalar.IsZero(sigr));
+            Debug.Assert(!overflow);
 
 
             // The overflow condition is cryptographically unreachable as hitting it requires finding the discrete log
@@ -305,7 +306,7 @@ namespace Cryptography.ECDSA
             int index = 0;
             bool rec;
             byte[] extra = null;
-            var r = new RNGCryptoServiceProvider();
+            var r = RandomNumberGenerator.Create();
 
             do
             {
@@ -377,7 +378,7 @@ namespace Cryptography.ECDSA
 
         public static byte[] GenerateRandomKey()
         {
-            var rand = new RNGCryptoServiceProvider();
+            var rand = RandomNumberGenerator.Create();
             var key = new byte[32];
             rand.GetBytes(key);
             return key;

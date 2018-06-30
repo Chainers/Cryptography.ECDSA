@@ -2,6 +2,7 @@
 #define USE_FIELD_10X26
 
 using System;
+using System.Diagnostics;
 
 namespace Cryptography.ECDSA.Internal.Secp256K1
 {
@@ -58,7 +59,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //                    }
         //                }
         //            }
-        //            Util.VERIFY_CHECK(r == 1);
+        //            Debug.Assert(r == 1);
         //        }
         //#endif
 
@@ -84,7 +85,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             t9 += (t8 >> 26); t8 &= 0x3FFFFFF; m &= t8;
 
             // ... except for a possible carry at bit 22 of t9 (i.e. bit 256 of the field element) 
-            Util.VERIFY_CHECK(t9 >> 23 == 0);
+            Debug.Assert(t9 >> 23 == 0);
 
             // At most a single final reduction is needed; check if the value is >= the field characteristic 
             if (((t9 == 0x03FFFFF) & (m == 0x3FFFFFF) && ((t1 + 0x40 + ((t0 + 0x3D1) >> 26)) > 0x3FFFFFF)))
@@ -106,7 +107,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             t9 += (t8 >> 26); t8 &= 0x3FFFFFF;
 
             // If t9 didn't carry to bit 22 already, then it should have after any final reduction 
-            Util.VERIFY_CHECK(t9 >> 22 == x);
+            Debug.Assert(t9 >> 22 == x);
 
             // Mask off the possible multiple of 2^256 from the final reduction 
             t9 &= 0x03FFFFF;
@@ -142,7 +143,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             t9 += (t8 >> 26); t8 &= 0x3FFFFFF;
 
             // ... except for a possible carry at bit 22 of t9 (i.e. bit 256 of the field element) 
-            Util.VERIFY_CHECK(t9 >> 23 == 0);
+            Debug.Assert(t9 >> 23 == 0);
 
             r.N[0] = t0; r.N[1] = t1; r.N[2] = t2; r.N[3] = t3; r.N[4] = t4;
             r.N[5] = t5; r.N[6] = t6; r.N[7] = t7; r.N[8] = t8; r.N[9] = t9;
@@ -175,7 +176,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             t9 += (t8 >> 26); t8 &= 0x3FFFFFF; m &= t8;
 
             // ... except for a possible carry at bit 22 of t9 (i.e. bit 256 of the field element) 
-            Util.VERIFY_CHECK(t9 >> 23 == 0);
+            Debug.Assert(t9 >> 23 == 0);
 
             // At most a single final reduction is needed; check if the value is >= the field characteristic 
             if ((t9 == 0x03FFFFF) && (m == 0x3FFFFFF) && ((t1 + 0x40 + ((t0 + 0x3D1) >> 26)) > 0x3FFFFFF))
@@ -197,7 +198,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
                 t9 += (t8 >> 26); t8 &= 0x3FFFFFF;
 
                 // If t9 didn't carry to bit 22 already, then it should have after any final reduction 
-                Util.VERIFY_CHECK(t9 >> 22 == x);
+                Debug.Assert(t9 >> 22 == x);
 
                 // Mask off the possible multiple of 2^256 from the final reduction 
                 t9 &= 0x03FFFFF;
@@ -238,7 +239,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             z0 |= t9; z1 &= t9 ^ 0x3C00000;
 
             // ... except for a possible carry at bit 22 of t9 (i.e. bit 256 of the field element) 
-            Util.VERIFY_CHECK(t9 >> 23 == 0);
+            Debug.Assert(t9 >> 23 == 0);
 
             return (z0 == 0) || (z1 == 0x3FFFFFF);
         }
@@ -292,7 +293,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             z0 |= t9; z1 &= t9 ^ 0x3C00000;
 
             // ... except for a possible carry at bit 22 of t9 (i.e. bit 256 of the field element) 
-            Util.VERIFY_CHECK(t9 >> 23 == 0);
+            Debug.Assert(t9 >> 23 == 0);
 
             return (z0 == 0) | (z1 == 0x3FFFFFF);
         }
@@ -312,7 +313,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         {
             var t = a.N;
 #if VERIFY
-                    Util.VERIFY_CHECK(a.normalized);
+                    Debug.Assert(a.normalized);
                     secp256k1_fe_verify(a);
 #endif
             return (t[0] | t[1] | t[2] | t[3] | t[4] | t[5] | t[6] | t[7] | t[8] | t[9]) == 0;
@@ -340,8 +341,8 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         //        {
         //            int i;
         //#if VERIFY
-        //            Util.VERIFY_CHECK(a.normalized);
-        //            Util.VERIFY_CHECK(b.normalized);
+        //            Debug.Assert(a.normalized);
+        //            Debug.Assert(b.normalized);
         //            secp256k1_fe_verify(a);
         //            secp256k1_fe_verify(b);
         //#endif
@@ -480,7 +481,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         public static void Negate(Fe r, Fe a, UInt32 m)
         {
 #if VERIFY
-                    Util.VERIFY_CHECK(a.magnitude <= m);
+                    Debug.Assert(a.magnitude <= m);
                     secp256k1_fe_verify(a);
 #endif
             r.N[0] = 0x3FFFC2F * 2 * (m + 1) - a.N[0];
@@ -897,7 +898,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((c) >> (64)) != 0)
                 throw new ArithmeticException();
     #endif */
-            Util.VERIFY_CHECK(c <= 0x8000007C00000007);
+            Debug.Assert(c <= 0x8000007C00000007);
             /* [d 0 0 0 0 0 0 0 t9 0 c t6 t5 t4 t3 t2 t1 t0] = [p16 p15 p14 p13 p12 p11 p10 p9 0 p7 p6 p5 p4 p3 p2 p1 p0] */
             d += (UInt64)a[8] * b[9]
                  + (UInt64)a[9] * b[8];
@@ -916,7 +917,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((c) >> (64)) != 0)
                 throw new ArithmeticException();
     #endif */
-            Util.VERIFY_CHECK(c <= 0x800001703FFFC2F7);
+            Debug.Assert(c <= 0x800001703FFFC2F7);
             /* [d u7 0 0 0 0 0 0 0 t9 0 c-u7*R0 t6 t5 t4 t3 t2 t1 t0] = [p17 p16 p15 p14 p13 p12 p11 p10 p9 0 p7 p6 p5 p4 p3 p2 p1 p0] */
             t7 = (UInt32)(c & m); c >>= 26; c += u7 * r1;
 #if VERIFY
@@ -940,7 +941,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((c) >> (64)) != 0)
                 throw new ArithmeticException();
     #endif */
-            Util.VERIFY_CHECK(c <= 0x9000007B80000008);
+            Debug.Assert(c <= 0x9000007B80000008);
             /* [d 0 0 0 0 0 0 0 0 t9 c t7 t6 t5 t4 t3 t2 t1 t0] = [p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] */
             d += (UInt64)a[9] * b[9];
 #if VERIFY
@@ -958,7 +959,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((c) >> (64)) != 0)
                 throw new ArithmeticException();
     #endif */
-            Util.VERIFY_CHECK(c <= 0x9000016FBFFFC2F8);
+            Debug.Assert(c <= 0x9000016FBFFFC2F8);
             /* [d u8 0 0 0 0 0 0 0 0 t9 c-u8*R0 t7 t6 t5 t4 t3 t2 t1 t0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] */
 
             r[3] = t3;
@@ -1034,7 +1035,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((d) >> (53)) != 0)
                 throw new ArithmeticException();
 #endif
-            Util.VERIFY_CHECK(d <= 0x10000003FFFFBF);
+            Debug.Assert(d <= 0x10000003FFFFBF);
             /* [r9+(c<<22) r8 r7 r6 r5 r4 r3 t2 d-c*R1>>4 r0-c*R0>>4] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] */
             /* [r9 r8 r7 r6 r5 r4 r3 t2 d r0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] */
             r[1] = (UInt32)(d & m); d >>= 26;
@@ -1043,7 +1044,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
                || ((d) >> (27)) != 0)
                 throw new ArithmeticException();
 #endif
-            Util.VERIFY_CHECK(d <= 0x4000000);
+            Debug.Assert(d <= 0x4000000);
             /* [r9 r8 r7 r6 r5 r4 r3 t2+d r1 r0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] */
             d += t2;
 #if VERIFY
@@ -1348,7 +1349,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             //            if (((c) >> (64)) != 0)
             //                throw new ArithmeticException();
             //#endif
-            Util.VERIFY_CHECK(c <= 0x8000007C00000007);
+            Debug.Assert(c <= 0x8000007C00000007);
             // [d 0 0 0 0 0 0 0 t9 0 c t6 t5 t4 t3 t2 t1 t0] = [p16 p15 p14 p13 p12 p11 p10 p9 0 p7 p6 p5 p4 p3 p2 p1 p0] 
             d += (UInt64)(a[8] * 2) * a[9];
 #if VERIFY
@@ -1366,7 +1367,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             //            if (((c) >> (64)) != 0)
             //                throw new ArithmeticException();
             //#endif
-            Util.VERIFY_CHECK(c <= 0x800001703FFFC2F7);
+            Debug.Assert(c <= 0x800001703FFFC2F7);
             // [d u7 0 0 0 0 0 0 0 t9 0 c-u7*R0 t6 t5 t4 t3 t2 t1 t0] = [p17 p16 p15 p14 p13 p12 p11 p10 p9 0 p7 p6 p5 p4 p3 p2 p1 p0] 
             t7 = (UInt32)(c & m); c >>= 26; c += u7 * r1;
 #if VERIFY
@@ -1386,7 +1387,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             //            if (((c) >> (64)) != 0)
             //                throw new ArithmeticException();
             //#endif 
-            Util.VERIFY_CHECK(c <= 0x9000007B80000008);
+            Debug.Assert(c <= 0x9000007B80000008);
             // [d 0 0 0 0 0 0 0 0 t9 c t7 t6 t5 t4 t3 t2 t1 t0] = [p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] 
             d += (UInt64)a[9] * a[9];
 #if VERIFY
@@ -1404,7 +1405,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             //            if (((c) >> (64)) != 0)
             //                throw new ArithmeticException();
             //#endif 
-            Util.VERIFY_CHECK(c <= 0x9000016FBFFFC2F8);
+            Debug.Assert(c <= 0x9000016FBFFFC2F8);
             // [d u8 0 0 0 0 0 0 0 0 t9 c-u8*R0 t7 t6 t5 t4 t3 t2 t1 t0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] 
 
             r[3] = t3;
@@ -1483,7 +1484,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((d) >> (53)) != 0)
                 throw new ArithmeticException();
 #endif
-            Util.VERIFY_CHECK(d <= 0x10000003FFFFBF);
+            Debug.Assert(d <= 0x10000003FFFFBF);
             // [r9+(c<<22) r8 r7 r6 r5 r4 r3 t2 d-c*R1>>4 r0-c*R0>>4] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] 
             // [r9 r8 r7 r6 r5 r4 r3 t2 d r0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] 
             r[1] = (UInt32)(d & m); d >>= 26;
@@ -1495,7 +1496,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
             if (((d) >> (27)) != 0)
                 throw new ArithmeticException();
 #endif
-            Util.VERIFY_CHECK(d <= 0x4000000);
+            Debug.Assert(d <= 0x4000000);
             // [r9 r8 r7 r6 r5 r4 r3 t2+d r1 r0] = [p18 p17 p16 p15 p14 p13 p12 p11 p10 p9 p8 p7 p6 p5 p4 p3 p2 p1 p0] 
             d += t2;
 #if VERIFY
@@ -1515,11 +1516,11 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         public static void Mul(Fe r, Fe a, Fe b)
         {
 #if VERIFY
-                Util.VERIFY_CHECK(a.magnitude <= 8);
-                Util.VERIFY_CHECK(b.magnitude <= 8);
+                Debug.Assert(a.magnitude <= 8);
+                Debug.Assert(b.magnitude <= 8);
                 secp256k1_fe_verify(a);
                 secp256k1_fe_verify(b);
-                Util.VERIFY_CHECK(r != b);
+                Debug.Assert(r != b);
 #endif
             MulInner(r.N, a.N, b.N);
 #if VERIFY
@@ -1532,7 +1533,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         public static void Sqr(Fe r, Fe a)
         {
 #if VERIFY
-            Util.VERIFY_CHECK(a.magnitude <= 8);
+            Debug.Assert(a.magnitude <= 8);
             secp256k1_fe_verify(a);
 #endif
             SqrInner(r.N, a.N);
@@ -1598,7 +1599,7 @@ namespace Cryptography.ECDSA.Internal.Secp256K1
         public static void ToStorage(FeStorage r, Fe a)
         {
 #if VERIFY
-        Util.VERIFY_CHECK(a.normalized);
+        Debug.Assert(a.normalized);
 #endif
             r.N[0] = a.N[0] | a.N[1] << 26;
             r.N[1] = a.N[1] >> 6 | a.N[2] << 20;
