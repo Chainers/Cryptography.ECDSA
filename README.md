@@ -1,3 +1,4 @@
+[![NuGet version](https://badge.fury.io/nu/Cryptography.ECDSA.Secp256k1.svg)](https://badge.fury.io/nu/Cryptography.ECDSA.Secp256k1)
 [![Build Status](https://travis-ci.org/Chainers/Cryptography.ECDSA.svg?branch=master)](https://travis-ci.org/Chainers/Cryptography.ECDSA)
 
 # Cryptography.ECDSA (secp256k1 only)
